@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://Project:project@project.tuuml.mongodb.net/Project?retryWrites=true&w=majority"
+}
