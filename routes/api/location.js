@@ -6,38 +6,45 @@ const formidable = require('formidable');
 // This API posts location to console and to MongoDB
 router.post('/location', async (req, res) => {
     
-    // This form takes formData from actions
-    let form = new formidable.IncomingForm();
+    try {
 
-    // This code parses the form
-    form.parse(req, (err, fields) => {
-        if(err) {
-            return res.status(400).json({
-                error: 'Location could not be logged'
-            });
-        }
+        // This form takes formData from actions
+        let form = new formidable.IncomingForm();
 
-        // This code assigns location from the fields of the form
-        const { location,
-         } = fields;
-
-        // This code logs location to console
-        console.log(location);
-
-        // This code logs location to MongoDB
-        let locations = new Location({
-            location,
-        });
-
-        locations.save((err, success) => {
+        // This code parses the form
+        form.parse(req, (err, fields) => {
             if(err) {
-                console.log(err);
-                res.status(400).json({ error: 'Location could not be logged to MongoDB' })
+                return res.status(400).json({
+                    error: 'Location could not be logged'
+                });
             }
-            
-            return res.json(success);
+
+            // This code assigns location from the fields of the form
+            const { location,
+            } = fields;
+
+            // This code logs location to console
+            console.log(location);
+
+            // This code logs location to MongoDB
+            let locations = new Location({
+                location,
+            });
+
+            locations.save((err, success) => {
+                if(err) {
+                    console.log(err);
+                    res.status(400).json({ error: 'Location could not be logged to MongoDB' })
+                }
+                
+                return res.json(success);
+            })
         })
-    })
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error')
+    }
 });
 
 module.exports = router;

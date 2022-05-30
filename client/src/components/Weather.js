@@ -12,11 +12,37 @@ const WeatherWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+
+    .styling {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem;
+        border-radius: 25px;
+        -webkit-box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+        background-color: #4682B4;
+        width: 100%
+        max-width: 675px;
+        min-height: 300px;
+        color: white;
+    }
 
     ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
         li {
             margin: 15px;
             padding: 5px;
+            text-align: center;
+            width: 675px;
+
+            @media (max-width: 991px) {
+                width: auto;
+            }
         }
     }
 }
@@ -45,7 +71,7 @@ const Weather = ({
             <div>
             <h1>Current Weather</h1>
             <ul>
-            <li>
+            <li  className="styling">
             <p><b>City:</b> {match.params.location}</p>
             <p><b>Time:</b> {current && current.current.time}</p>
             <p><b>Weather:</b> {current && current.current.symbolPhrase}</p>
@@ -72,70 +98,16 @@ const Weather = ({
             <div>
                 <h1>Forecast Weather</h1>
             <ul>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[0].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[0].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[0].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[0].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[0].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[1].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[1].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[1].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[1].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[1].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[2].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[2].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[2].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[2].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[2].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[3].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[3].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[3].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[3].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[3].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[4].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[4].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[4].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[4].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[4].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[5].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[5].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[5].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[5].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[5].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[6].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[6].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[6].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[6].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[6].precipProb} %</p>
-                </li>
-                <li>
-                <p><b>City:</b> {match.params.location}</p>
-                <p><b>Time:</b> {forecast && forecast.forecast[7].date}</p>
-                <p><b>Weather:</b> {forecast && forecast.forecast[7].symbolPhrase}</p>
-                <p><b>Max temperature:</b> {forecast && forecast.forecast[7].maxTemp} C</p>
-                <p><b>Min temperature:</b> {forecast && forecast.forecast[7].minTemp} C</p>
-                <p><b>Precipitation probability:</b> {forecast && forecast.forecast[7].precipProb} %</p>
-                </li>
+                {(forecast && forecast.forecast).map(weather => (
+                    <li className="styling">
+                    <p><b>City:</b> {match.params.location}</p>
+                    <p><b>Time:</b> {weather.date}</p>
+                    <p><b>Weather:</b> {weather.symbolPhrase}</p>
+                    <p><b>Max temperature:</b> {weather.maxTemp} C</p>
+                    <p><b>Min temperature:</b> {weather.minTemp} C</p>
+                    <p><b>Precipitation probability:</b> {weather.precipProb} %</p>
+                    </li>
+                ))}
             </ul>
             </div>
             :

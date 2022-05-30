@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLocation, logLocation } from '../actions/location';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 const MainWrapper = styled.div`
 .main {
@@ -13,6 +14,20 @@ const MainWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
+    .styling {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        border-radius: 25px;
+        -webkit-box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+        background-color: #4682B4;
+        width: 85%;
+        max-width: 675px;
+        min-height: 300px;
+    }
     .search {
         margin: 4px 2px;
         padding: 8px, 32px;
@@ -31,10 +46,22 @@ const MainWrapper = styled.div`
     }
 
     ol {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
         li {
             margin: 15px;
             padding: 5px;
             text-align: center;
+            width: 675px;
+
+            @media (max-width: 991px) {
+                width: auto;
+            }
+
+            p {
+                color: white;
+            }
 
             .button {
                 background-color: #4CAF50;
@@ -107,8 +134,9 @@ const Main = ({
     return (
         <MainWrapper>
         <div className="main">
+            <div className="styling">
             <input className="search" type="text" name="search" value={location} onChange={handleChange("location")} placeholder="Search for location" maxLength='30'/>
-            <button className="button" type="button" name="button" onClick={handleSubmit}>Search</button>
+            <Button className="button" type="button" name="button" onClick={handleSubmit}>Search</Button>
             <div>
                 <p style={{color: "red"}}>{message}</p>
             </div>
@@ -118,105 +146,36 @@ const Main = ({
             </div>
             :
             console.log()}
+            </div>
             {loading === false ? 
             <div>
                 <ol>
-                {(locations && locations.locations[0]) !== undefined ? 
-                <li>
-                    <p>Name: {(locations && locations.locations[0].name)}</p>
-                    <p>Country: {(locations && locations.locations[0].country)}</p>
-                    <p>Area: {(locations && locations.locations[0].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(locations && locations.locations[0].id)}/${(locations && locations.locations[0].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(locations && locations.locations[1]) !== undefined ? 
-                <li>
-                    <p>Name: {(locations && locations.locations[1].name)}</p>
-                    <p>Country: {(locations && locations.locations[1].country)}</p>
-                    <p>Area: {(locations && locations.locations[1].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(locations && locations.locations[1].id)}/${(locations && locations.locations[1].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(locations && locations.locations[2]) !== undefined ? 
-                <li>
-                    <p>Name: {(locations && locations.locations[2].name)}</p>
-                    <p>Country: {(locations && locations.locations[2].country)}</p>
-                    <p>Area: {(locations && locations.locations[2].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(locations && locations.locations[2].id)}/${(locations && locations.locations[2].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(locations && locations.locations[3]) !== undefined ? 
-                <li>
-                    <p>Name: {(locations && locations.locations[3].name)}</p>
-                    <p>Country: {(locations && locations.locations[3].country)}</p>
-                    <p>Area: {(locations && locations.locations[3].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(locations && locations.locations[3].id)}/${(locations && locations.locations[3].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(locations && locations.locations[4]) !== undefined ? 
-                <li>
-                    <p>Name: {(locations && locations.locations[4].name)}</p>
-                    <p>Country: {(locations && locations.locations[4].country)}</p>
-                    <p>Area: {(locations && locations.locations[4].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(locations && locations.locations[4].id)}/${(locations && locations.locations[4].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
+                {(locations && locations.locations).map((location, j) => (
+                    <li>
+                        <div className="styling">
+                        <p>Name: {(location.name)}</p>
+                        <p>Country: {(location.country)}</p>
+                        <p>Area: {(location.adminArea)}</p>
+                        <Button className="button" onClick={() => history.push(`/${(location.id)}/${(location.name)}`)}>Show Weather</Button>
+                        </div>
+                    </li>
+                )).filter((location, j) => j < 5)}
                 </ol>
             </div>
             : console.log()}
             {loading === true && localStorage.getItem('locations') !== undefined ? 
             <div>
                 <ol>
-                {(JSON.parse(localStorage.getItem('locations'))[0]) !== undefined ? 
-                <li>
-                    <p>Name: {(JSON.parse(localStorage.getItem('locations'))[0].name)}</p>
-                    <p>Country: {(JSON.parse(localStorage.getItem('locations'))[0].country)}</p>
-                    <p>Area: {(JSON.parse(localStorage.getItem('locations'))[0].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(JSON.parse(localStorage.getItem('locations'))[0].id)}/${(JSON.parse(localStorage.getItem('locations'))[0].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(JSON.parse(localStorage.getItem('locations'))[1]) !== undefined ? 
-                <li>
-                    <p>Name: {(JSON.parse(localStorage.getItem('locations'))[1].name)}</p>
-                    <p>Country: {(JSON.parse(localStorage.getItem('locations'))[1].country)}</p>
-                    <p>Area: {(JSON.parse(localStorage.getItem('locations'))[1].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(JSON.parse(localStorage.getItem('locations'))[1].id)}/${(JSON.parse(localStorage.getItem('locations'))[1].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(JSON.parse(localStorage.getItem('locations'))[2]) !== undefined ? 
-                <li>
-                    <p>Name: {(JSON.parse(localStorage.getItem('locations'))[2].name)}</p>
-                    <p>Country: {(JSON.parse(localStorage.getItem('locations'))[2].country)}</p>
-                    <p>Area: {(JSON.parse(localStorage.getItem('locations'))[2].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(JSON.parse(localStorage.getItem('locations'))[2].id)}/${(JSON.parse(localStorage.getItem('locations'))[2].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(JSON.parse(localStorage.getItem('locations'))[3]) !== undefined ? 
-                <li>
-                    <p>Name: {(JSON.parse(localStorage.getItem('locations'))[3].name)}</p>
-                    <p>Country: {(JSON.parse(localStorage.getItem('locations'))[3].country)}</p>
-                    <p>Area: {(JSON.parse(localStorage.getItem('locations'))[3].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(JSON.parse(localStorage.getItem('locations'))[3].id)}/${(JSON.parse(localStorage.getItem('locations'))[3].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
-                {(JSON.parse(localStorage.getItem('locations'))[4]) !== undefined ? 
-                <li>
-                    <p>Name: {(JSON.parse(localStorage.getItem('locations'))[4].name)}</p>
-                    <p>Country: {(JSON.parse(localStorage.getItem('locations'))[4].country)}</p>
-                    <p>Area: {(JSON.parse(localStorage.getItem('locations'))[4].adminArea)}</p>
-                    <button className="button" onClick={() => history.push(`/${(JSON.parse(localStorage.getItem('locations'))[4].id)}/${(JSON.parse(localStorage.getItem('locations'))[4].name)}`)}>Show Weather</button>
-                </li>
-                :
-                console.log()}
+                {JSON.parse(localStorage.getItem('locations')).map(location => (
+                    <li>
+                        <div className="styling">
+                        <p>Name: {(location.name)}</p>
+                        <p>Country: {(location.country)}</p>
+                        <p>Area: {(location.adminArea)}</p>
+                        <Button className="button" onClick={() => history.push(`/${(location.id)}/${(location.name)}`)}>Show Weather</Button>
+                        </div>
+                    </li>
+                )).filter((location, j) => j < 5)}
                 </ol>
             </div>
             : console.log()}
