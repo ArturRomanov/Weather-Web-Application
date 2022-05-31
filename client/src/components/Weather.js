@@ -61,7 +61,7 @@ const Weather = ({
         getCurrentWeather(match.params.id, match.params.location);
         getForecastWeather(match.params.id);
     },
-    [getCurrentWeather, match.params.id],
+    [getCurrentWeather, match.params.id, match.params.location],
     [getForecastWeather, match.params.id]);
 
     return (
@@ -69,28 +69,28 @@ const Weather = ({
         <div className="main">
             {current && current.current !== undefined ? 
             <div>
-            <h1>Current Weather</h1>
-            <ul>
-            <li  className="styling">
-            <p><b>City:</b> {match.params.location}</p>
-            <p><b>Time:</b> {current && current.current.time}</p>
-            <p><b>Weather:</b> {current && current.current.symbolPhrase}</p>
-            <p><b>Temperature:</b> {current && current.current.temperature} C</p>
-            <p><b>Feels like temperature:</b> {current && current.current.feelsLikeTemp} C</p>
-            <p><b>Relative humidity:</b> {current && current.current.relHumidity} %</p>
-            <p><b>Dew point:</b> {current && current.current.dewPoint} C</p>
-            <p><b>Wind speed:</b> {current && current.current.windSpeed} m/s</p>
-            <p><b>Wind direction string:</b> {current && current.current.windDirString}</p>
-            <p><b>Wind gust:</b> {current && current.current.windGust} m/s</p>
-            <p><b>Precipitation probability:</b> {current && current.current.precipProb} %</p>
-            <p><b>Precipitation rate:</b> {current && current.current.precipRate} mm/h</p>
-            <p><b>Cloudiness:</b> {current && current.current.cloudiness} %</p>
-            <p><b>Thunder probability:</b> {current && current.current.thunderProb} %</p>
-            <p><b>UV index:</b> {current && current.current.uvIndex}</p>
-            <p><b>Pressure:</b> {current && current.current.pressure} mm Hg</p>
-            <p><b>Visibility:</b> {current && current.current.visibility} m</p>
-            </li>
-            </ul>
+                <h1>Current Weather</h1>
+                    <ul>
+                        <li  className="styling">
+                            <p><b>City:</b> {match.params.location}</p>
+                            <p><b>Time:</b> {current && current.current.time}</p>
+                            <p><b>Weather:</b> {current && current.current.symbolPhrase}</p>
+                            <p><b>Temperature:</b> {current && current.current.temperature} C</p>
+                            <p><b>Feels like temperature:</b> {current && current.current.feelsLikeTemp} C</p>
+                            <p><b>Relative humidity:</b> {current && current.current.relHumidity} %</p>
+                            <p><b>Dew point:</b> {current && current.current.dewPoint} C</p>
+                            <p><b>Wind speed:</b> {current && current.current.windSpeed} m/s</p>
+                            <p><b>Wind direction string:</b> {current && current.current.windDirString}</p>
+                            <p><b>Wind gust:</b> {current && current.current.windGust} m/s</p>
+                            <p><b>Precipitation probability:</b> {current && current.current.precipProb} %</p>
+                            <p><b>Precipitation rate:</b> {current && current.current.precipRate} mm/h</p>
+                            <p><b>Cloudiness:</b> {current && current.current.cloudiness} %</p>
+                            <p><b>Thunder probability:</b> {current && current.current.thunderProb} %</p>
+                            <p><b>UV index:</b> {current && current.current.uvIndex}</p>
+                            <p><b>Pressure:</b> {current && current.current.pressure} mm Hg</p>
+                            <p><b>Visibility:</b> {current && current.current.visibility} m</p>
+                        </li>
+                    </ul>
             </div>
             :
             console.log()}
@@ -98,14 +98,14 @@ const Weather = ({
             <div>
                 <h1>Forecast Weather</h1>
             <ul>
-                {(forecast && forecast.forecast).map(weather => (
-                    <li className="styling">
-                    <p><b>City:</b> {match.params.location}</p>
-                    <p><b>Time:</b> {weather.date}</p>
-                    <p><b>Weather:</b> {weather.symbolPhrase}</p>
-                    <p><b>Max temperature:</b> {weather.maxTemp} C</p>
-                    <p><b>Min temperature:</b> {weather.minTemp} C</p>
-                    <p><b>Precipitation probability:</b> {weather.precipProb} %</p>
+                {(forecast && forecast.forecast).map((weather, j) => (
+                    <li className="styling" key={j}>
+                        <p><b>City:</b> {match.params.location}</p>
+                        <p><b>Time:</b> {weather.date}</p>
+                        <p><b>Weather:</b> {weather.symbolPhrase}</p>
+                        <p><b>Max temperature:</b> {weather.maxTemp} C</p>
+                        <p><b>Min temperature:</b> {weather.minTemp} C</p>
+                        <p><b>Precipitation probability:</b> {weather.precipProb} %</p>
                     </li>
                 ))}
             </ul>

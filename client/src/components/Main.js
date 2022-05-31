@@ -135,8 +135,8 @@ const Main = ({
         <MainWrapper>
         <div className="main">
             <div className="styling">
-            <input className="search" type="text" name="search" value={location} onChange={handleChange("location")} placeholder="Search for location" maxLength='30'/>
-            <Button className="button" type="button" name="button" onClick={handleSubmit}>Search</Button>
+                <input className="search" type="text" name="search" value={location} onChange={handleChange("location")} placeholder="Search for location" maxLength='30'/>
+                <Button className="button" type="button" name="button" onClick={handleSubmit}>Search</Button>
             <div>
                 <p style={{color: "red"}}>{message}</p>
             </div>
@@ -151,7 +151,7 @@ const Main = ({
             <div>
                 <ol>
                 {(locations && locations.locations).map((location, j) => (
-                    <li>
+                    <li className="location" key={j}>
                         <div className="styling">
                         <p>Name: {(location.name)}</p>
                         <p>Country: {(location.country)}</p>
@@ -166,8 +166,8 @@ const Main = ({
             {loading === true && localStorage.getItem('locations') !== undefined ? 
             <div>
                 <ol>
-                {JSON.parse(localStorage.getItem('locations')).map(location => (
-                    <li>
+                {JSON.parse(localStorage.getItem('locations')).map((location, j) => (
+                    <li className="location" key={j}>
                         <div className="styling">
                         <p>Name: {(location.name)}</p>
                         <p>Country: {(location.country)}</p>
