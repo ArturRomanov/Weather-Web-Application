@@ -58,9 +58,9 @@ const Weather = ({
     
     // This function useEffect loads a state when a page is opened or refreshed
     useEffect(() => {
-        getCurrentWeather(match.params.id, match.params.location);
-        getForecastWeather(match.params.id);
-    },
+            getCurrentWeather(match.params.id, match.params.location);
+            getForecastWeather(match.params.id);
+        },
     [getCurrentWeather, match.params.id, match.params.location],
     [getForecastWeather, match.params.id]);
 
