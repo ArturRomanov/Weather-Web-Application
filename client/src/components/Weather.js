@@ -97,18 +97,18 @@ const Weather = ({
                 {forecast && forecast.forecast !== undefined ? 
                 <div>
                     <h1>Forecast Weather</h1>
-                <ul>
-                    {(forecast && forecast.forecast).map((weather, j) => (
-                        <li className="styling" key={j}>
-                            <p><b>City:</b> {match.params.location}</p>
-                            <p><b>Time:</b> {weather.date}</p>
-                            <p><b>Weather:</b> {weather.symbolPhrase}</p>
-                            <p><b>Max temperature:</b> {weather.maxTemp} C</p>
-                            <p><b>Min temperature:</b> {weather.minTemp} C</p>
-                            <p><b>Precipitation probability:</b> {weather.precipProb} %</p>
-                        </li>
-                    ))}
-                </ul>
+                    <ul>
+                        {(forecast && forecast.forecast).map((weather, j) => (
+                            <li className="styling" key={j}>
+                                <p><b>City:</b> {match.params.location}</p>
+                                <p><b>Time:</b> {weather.date}</p>
+                                <p><b>Weather:</b> {weather.symbolPhrase}</p>
+                                <p><b>Max temperature:</b> {weather.maxTemp} C</p>
+                                <p><b>Min temperature:</b> {weather.minTemp} C</p>
+                                <p><b>Precipitation probability:</b> {weather.precipProb} %</p>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 :
                 console.log()}
